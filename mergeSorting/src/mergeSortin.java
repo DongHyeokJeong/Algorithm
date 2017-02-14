@@ -2,9 +2,9 @@ import java.util.Arrays;
 
 public class mergeSortin {
     public static void main (String [] args) throws Exception {
-        int[] sample = new int[] {123, 23, 7, 23, 865, 57, 4, 348};
+        int[] sample = new int[] {123, 23, 7, 23, 865, 57, 4, 348}; // 샘플 배열
 
-        merge_sort(sample);
+        merge_sort(sample); // 합병 정렬
 
         System.out.print(Arrays.toString(sample));
 
@@ -14,7 +14,7 @@ public class mergeSortin {
         int[] arr_temp1 = new int[arr.length/2];
         int[] arr_temp2 = new int[arr.length- arr.length/2];
 
-        if(arr.length > 1) {
+        if(arr.length > 1) {  // 두개로 나누는 과정
             for (int i = 0; i < arr.length; i++) { //divide
                 if (i < arr.length / 2) {
                     arr_temp1[i] = arr[i];
@@ -26,7 +26,7 @@ public class mergeSortin {
             merge_sort(arr_temp1);
             merge_sort(arr_temp2);
 
-            merging(arr_temp1,arr_temp2,arr);
+            merging(arr_temp1,arr_temp2,arr); // 다시 합치는 과정
         }
     }
 
