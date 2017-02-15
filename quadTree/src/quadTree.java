@@ -51,7 +51,7 @@ public class quadTree {
         }
 
         if(flag == 1) {
-            s+=video[0][0];
+            s+=c;
             return;
         }
         else {
