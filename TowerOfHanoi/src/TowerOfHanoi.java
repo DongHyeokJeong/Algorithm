@@ -20,7 +20,7 @@ public class TowerOfHanoi {
         Scanner scan = new Scanner(System.in);
         n = scan.nextInt();
 
-        movePlate(n,A,B,C,num);
+        movePlate(n,A,B,C,num); // A->B로
 
         System.out.println(num.value);
     }
@@ -33,10 +33,10 @@ public class TowerOfHanoi {
             return;
         }
         else {
-            movePlate(n-1,frompeg,auxpeg,topeg,num);
+            movePlate(n-1,frompeg,auxpeg,topeg,num); // A -> C로
             System.out.println("Move disk " + frompeg + " -> " + topeg);
 
-            movePlate(n-1,auxpeg,topeg, frompeg,num);
+            movePlate(n-1,auxpeg,topeg, frompeg,num); // C -> B로
         }
     }
 }
