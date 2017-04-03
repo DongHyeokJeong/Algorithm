@@ -6,8 +6,8 @@ public class make1 {
     public static void main(String [] args) {
         int p;
 
-        Scanner scan = new Scanner(System.in);      // 문자 입력을 인자로 Scanner 생성
-        p = scan.nextInt();            // 키보드 문자 입력
+        Scanner scan = new Scanner(System.in);
+        p = scan.nextInt();
 
         dp[1]=0;
 
