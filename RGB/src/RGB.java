@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class RGB {
-    static int[] dp = new int[1001];
     static int[][] cost;
     static int N;
 
