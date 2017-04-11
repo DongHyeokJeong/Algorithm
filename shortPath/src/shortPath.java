@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 class Element implements Comparable<Element>{
@@ -28,8 +29,9 @@ class Element implements Comparable<Element>{
 public class shortPath {
     static int V, E, K;
     static int[] dist;
-    static int[][] graph;
-    static final int inf = 99999;
+    /*static int[][] graph;*/
+    static final int inf = 999999;
+    static ArrayList<Element>[] graph;
 
     public static void main(String [] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -41,13 +43,11 @@ public class shortPath {
         K = Integer.parseInt(br.readLine());
 
         dist = new int[V+1];
-        graph = new int[V+1][V+1];
+        graph = new ArrayList[V+1];
 
         for(int i=1;i<=V;i++) {
-            for(int j=1;j<=V;j++) {
-                graph[i][j] = inf;
-            }
             dist[i]=inf;
+            graph[i] = new ArrayList<>();
         }
 
         for(int i=0;i<E;i++) {
@@ -56,18 +56,15 @@ public class shortPath {
             int a = Integer.parseInt(s[0]);
             int b = Integer.parseInt(s[1]);
             int c = Integer.parseInt(s[2]);
-            int preVal = graph[a][b];
 
-            if(preVal > c) {
-                graph[a][b] = c;       // a->b, 가중치는 c
-            }
+            graph[a].add(new Element(b,c));
         }
 
         /*for(int i=1;i<=V;i++) {
-            for(int j=1;j<=V;j++) {
-                System.out.println(graph[i][j]);
+            for(int j=0;j<graph[i].size();j++) {
+                System.out.print(i + " " + graph[i].get(j).getIndex() + " ");
+                System.out.println(graph[i].get(j).getDistance());
             }
-            System.out.println();
         }*/
 
         dijkstra(K);
@@ -85,21 +82,26 @@ public class shortPath {
 
             if(cost>dist[here]) continue;
 
-            for(int i=1;i<=V;i++) {
-                if(graph[here][i] != inf && dist[i]>dist[here]+graph[here][i]) {
-                    dist[i] = dist[here] + graph[here][i];
-                    q.offer(new Element(i,dist[i]));
+            for(int i=0;i<graph[here].size();i++) {
+                int there = graph[here].get(i).getIndex();
+                int nextDist = cost + graph[here].get(i).getDistance();
+
+                if(dist[there] > nextDist) {
+                    dist[there] = nextDist;
+                    q.offer(new Element(there,dist[there]));
                 }
             }
         }
 
-        System.out.println();
         for(int i=1;i<=V;i++) {
             if(dist[i] == inf) {
-                System.out.println("INF");
+                System.out.print("INF");
             }
             else {
-                System.out.println(dist[i]);
+                System.out.print(dist[i]);
+            }
+            if(i<V) {
+                System.out.println();
             }
         }
     }
