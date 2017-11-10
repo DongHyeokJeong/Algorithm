@@ -1,49 +1,35 @@
-class Solution {
-    public int solution(String dartResult) {
-        int answer = 0;
-        int index = -1;
-        int[] result = new int[3];  // 각 라운드 점수 계산
+import java.util.Scanner;
+import java.util.Stack;
 
-        for(int i=0;i<dartResult.length();i++){
-            if(dartResult.charAt(i)>='0' && dartResult.charAt(i) <='9'){
-                if(dartResult.charAt(i)=='1'&& dartResult.charAt(i+1)=='0') {
-                    index++;
-                    result[index] = 10;
-                    i++;
-                }
-                else {
-                    index++;
-                    result[index] = dartResult.charAt(i)-48;
-                }
+public class Main {
 
-            }
-            else if(dartResult.charAt(i)=='D') {
-                result[index] *= result[index];
-            }
-            else if(dartResult.charAt(i)=='T') {
-                result[index] *= result[index] * result[index];
-            }
-            else if(dartResult.charAt(i)=='*') {
-                if(index>=1) {
-                    result[index] *= 2;
-                    result[index-1] *= 2;
-                }
-                else{
-                    result[index] *= 2;
-                }
-            }
-            else if(dartResult.charAt(i)=='#') {
-                result[index] *= (-1);
+    public static void main(String[] args) {
 
+        Stack<Integer> stack = new Stack<Integer>();
+        Scanner sc = new Scanner(System.in);
+
+        int N = sc.nextInt();
+        int[] height = new int [N+1];
+        int[] ret = new int [N+1];
+
+        for(int i=1;i<=N;i++) {
+            height[i] = sc.nextInt();
+        }
+
+        for(int i=N;i>0;i--) {
+            while(!stack.isEmpty() && height[stack.peek()]<height[i]) {
+                ret[stack.pop()] = i;
             }
+            stack.push(i);
+        }
+
+        for(int i=1;i<=N;i++) {
+            System.out.print(ret[i]+" ");
         }
 
 
-        for(int i=0;i<3;i++) {
-            answer += result[i];
-        }
 
-
-        return answer;
+        sc.close();
     }
+
 }
