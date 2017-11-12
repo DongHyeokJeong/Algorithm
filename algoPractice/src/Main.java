@@ -3,30 +3,29 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
-    public static int[] alpha = new int[200];
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int T = Integer.parseInt(br.readLine());
-        int group_num=T;
+        //int T = Integer.parseInt(br.readLine());
+        String s = br.readLine();
+        char[] c = new char[101];
+        int count=0;
 
-        for(int i=0;i<T;i++) {
-            String s[] = br.readLine().split("");
+        for(int i=0;i<s.length();i++) {
+            c[i] = s.charAt(i);
+        }
 
-            for(int j=97;j<=122;j++) {
-                alpha[j] = -1;
-            }
+        for (int i = 0; i<101; i++) {
+            if (c[i] == '=' || c[i] == '-') c[i] = '0';
+            if (c[i] == 'z' && c[i + 1] == '=' && c[i - 1] == 'd') c[i] = '0';
+            if (c[i] == 'j' && (c[i - 1] == 'l' || c[i - 1] == 'n')) c[i] = '0';
+        }
 
-            for(int j=1;j<s.length;j++) {
-                if(!s[j-1].equals(s[j])) {
-                    if(alpha[(int) s[j].charAt(0)] != -1) {
-                        group_num--;
-                        break;
-                    }
-                    alpha[(int) s[j-1].charAt(0)] = 0;
-                }
+        for(int i=0;i<s.length();i++) {
+            if(c[i] != '0') {
+                count++;
             }
         }
-        System.out.print(group_num);;
+
+        System.out.print(count);
     }
 }
